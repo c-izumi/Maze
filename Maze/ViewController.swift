@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     var playerMotionManaeger: CMMotionManager!
     var speedX: Double = 0.0
     var speedY: Double = 0.0
+    
     let screenSize = UIScreen.main.bounds.size
     
     let maze = [
@@ -36,7 +37,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     
         let cellWidth = screenSize.width / CGFloat(maze[0].count)
         let cellHeight = screenSize.height / CGFloat(maze.count)
@@ -51,6 +51,7 @@ class ViewController: UIViewController {
                     let wallView = createView(x: x, y: y, width: cellWidth, height: cellHeight, offsetX: cellOffsetX, offsetY: cellOffsetY)
                     wallView.backgroundColor = UIColor.black
                     view.addSubview(wallView)
+                    wallRectArray.append(wallView.frame)
                 case 2:
                     startView = createView(x: x, y: y, width: cellWidth, height: cellHeight, offsetX: cellOffsetX, offsetY: cellOffsetY)
                     startView.backgroundColor = UIColor.green
@@ -64,6 +65,7 @@ class ViewController: UIViewController {
                 }
             }
         }
+        
         playerView = UIView(frame: CGRect(x: 0, y: 0, width: cellWidth / 6, height: cellHeight / 6))
         playerView.center = startView.center
         playerView.backgroundColor =  UIColor.gray
@@ -79,7 +81,6 @@ class ViewController: UIViewController {
     func createView(x: Int, y: Int, width: CGFloat, height: CGFloat, offsetX: CGFloat, offsetY: CGFloat) -> UIView {
         let rect = CGRect(x: 0, y: 0, width: width, height: height)
         let view = UIView(frame: rect)
-        
         let center = CGPoint(x: offsetX + width * CGFloat(x), y: offsetY + height * CGFloat(y))
         
         view.center = center
@@ -145,6 +146,7 @@ class ViewController: UIViewController {
         
         self.present(gameCheckAlert, animated: true, completion: nil)
     }
+    
     func retry() {
         playerView.center = startView.center
         if playerMotionManaeger.isAccelerometerActive {
