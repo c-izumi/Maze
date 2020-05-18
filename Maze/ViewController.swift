@@ -149,7 +149,7 @@ class ViewController: UIViewController {
     
     func retry() {
         playerView.center = startView.center
-        if playerMotionManaeger.isAccelerometerActive {
+        if !playerMotionManaeger.isAccelerometerActive {
             self.startAccelerometer()
         }
         speedX = 0.0
